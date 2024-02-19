@@ -8,38 +8,20 @@
 import UIKit
 import CoreApi
 
-extension HomeViewController {
-    fileprivate enum Constants {
-        static let cellDescriptionViewHeight: CGFloat = 60
-        static let cellBannerImageViewAspectRatio: CGFloat = 130/345
-        
-        static let cellLeftPadding: CGFloat = 15
-        static let cellRightPadding: CGFloat = 15
-    }
-}
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, LoadingShowable {
     
     @IBOutlet private weak var restaurantsCollectionView: UICollectionView!
-
-  
     
-    var viewModel: HomeViewModelProtocol! {
+    var viewModel: HomeViewModelProtocol! { // Bu class'ta viewModel'ı kullanabilmeyi sağlar
         didSet {
             viewModel.delegate = self
         }
     }
-        
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         viewModel.load()
-
     }
         
     @objc
@@ -47,11 +29,7 @@ class HomeViewController: UIViewController {
         viewModel.pullToRefresh()
     }
     
-    private func calculateCellHeight() -> CGFloat {
-        let cellWidth =  restaurantsCollectionView.frame.size.width - (Constants.cellLeftPadding + Constants.cellRightPadding)
-        let bannerImageHeight = cellWidth * Constants.cellBannerImageViewAspectRatio
-        return Constants.cellDescriptionViewHeight + bannerImageHeight
-    }
+
 }
 
 extension HomeViewController: UICollectionViewDataSource {
@@ -74,13 +52,12 @@ extension HomeViewController: UICollectionViewDataSource {
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = viewModel.calculateCellHeight(collectionViewWidth: Double(collectionView.frame.size.width))
+        let size = viewModel.calculateCellSize(collectionViewWidth: Double(collectionView.frame.size.width))
            return .init(width: size.width, height: size.height )
-//        .init(width: collectionView.frame.size.width - (Constants.cellLeftPadding + Constants.cellRightPadding ), height: viewModel.calculateCellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        .init(top: .zero, left: Constants.cellLeftPadding, bottom: .zero, right: Constants.cellRightPadding)
+        .init(top: .zero, left: CGFloat(viewModel.cellPadding), bottom: .zero, right: CGFloat(viewModel.cellPadding))
     }
     
     
@@ -96,19 +73,19 @@ extension HomeViewController: UICollectionViewDelegate {
 
 extension HomeViewController: HomeViewModelDelegate {
     func showLoadingView() {
-        
+        showLoading()
     }
     
     func hideLoadingView() {
-        
+        hideLoading()
     }
     
     func reloadData() {
-        
+        restaurantsCollectionView.reloadData()
     }
     
     func endRefreshing() {
-        
+        restaurantsCollectionView.refreshControl?.endRefreshing()
     }
     
     func prepareCollectionView() {

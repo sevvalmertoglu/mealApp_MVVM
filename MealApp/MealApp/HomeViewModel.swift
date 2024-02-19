@@ -11,8 +11,11 @@ import CoreApi
 extension HomeViewModel {
     fileprivate enum Constants {
         static let cellLeftPadding: Double = 15
-        static let cellRighttPadding: Double = 15
+        static let cellRightPadding: Double = 15
         static let firstPageHref: String = "page=1"
+        static let cellBannerImageViewAspectRatio: Double = 130/345
+        static let cellDescriptionViewHeight: Double = 60
+
 
     }
 }
@@ -20,10 +23,11 @@ extension HomeViewModel {
 protocol HomeViewModelProtocol {
     var delegate: HomeViewModelDelegate? { get set }
     var numberOfItems: Int { get }
+    var cellPadding: Double { get }
     
     func load()
     func restaurant(_ index: Int) -> Restaurant?
-    func calculateCellHeight(collectionViewWidth: Double) -> (width: Double, height: Double)
+    func calculateCellSize(collectionViewWidth: Double) -> (width: Double, height: Double)
     func pullToRefresh()
     func willDisplay(_ index: Int)
     
@@ -41,11 +45,15 @@ protocol HomeViewModelDelegate: AnyObject {
 
 final class HomeViewModel {
     private var widgets: [Widget] = [] //Tüm data işlemleri sadece burada olacak
-    let networkManager: NetworkManager<HomeEndpointItem> = NetworkManager()
+    let networkManager: NetworkManager<HomeEndpointItem>
     weak var delegate: HomeViewModelDelegate?
     private var shouldFetchNextPage: Bool = true
     private var href: String = Constants.firstPageHref
 
+    init(networkManager: NetworkManager<HomeEndpointItem>) {
+        self.networkManager = networkManager
+    }
+    
     
     private func fetchWidgets(query: String) {
         delegate?.showLoadingView()
@@ -75,6 +83,10 @@ final class HomeViewModel {
 }
 
 extension HomeViewModel: HomeViewModelProtocol {
+    var cellPadding: Double {
+        Constants.cellLeftPadding
+    }
+    
     func willDisplay(_ index: Int) {
         if index == (widgets.count - 1), shouldFetchNextPage {
             fetchWidgets(query: href)
@@ -89,26 +101,25 @@ extension HomeViewModel: HomeViewModelProtocol {
     }
     
     var numberOfItems: Int {
-        0
+        widgets.count
     }
     
     func load() {
         delegate?.prepareCollectionView()
-        addRefreshControl()
+        delegate?.addRefreshControl()
         fetchWidgets(query: href)
         
     }
-    
-    func addRefreshControl() {
-        
-    }
-        
+            
     func restaurant(_ index: Int) -> Restaurant? {
-        widgets[index].restaurants?.first
+        widgets[safe: index]?.restaurants?.first
     }
     
-    func calculateCellHeight(collectionViewWidth: Double) -> (width: Double, height: Double) {
-        (width: 0.0, height: 0.0)
+    func calculateCellSize(collectionViewWidth: Double) -> (width: Double, height: Double) {
+        let cellWidth = collectionViewWidth - (Constants.cellLeftPadding + Constants.cellRightPadding)
+        let bannerImageHeight = cellWidth * Constants.cellBannerImageViewAspectRatio
+        
+        return (width: cellWidth, height: Constants.cellDescriptionViewHeight + bannerImageHeight)
     }
     
     

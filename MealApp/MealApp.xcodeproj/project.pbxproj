@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		A90598312B83856900670E2D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90598302B83856900670E2D /* HomeViewModel.swift */; };
+		A90598332B83CB2700670E2D /* LoadingShowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90598322B83CB2700670E2D /* LoadingShowable.swift */; };
+		A90598382B83CED500670E2D /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90598372B83CED500670E2D /* Collection+Extension.swift */; };
+		A905983A2B83CFFD00670E2D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90598392B83CFFD00670E2D /* LoadingView.swift */; };
 		A90B98A22AAF1FA900C2C670 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90B98A12AAF1FA900C2C670 /* AppDelegate.swift */; };
 		A90B98A42AAF1FA900C2C670 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90B98A32AAF1FA900C2C670 /* SceneDelegate.swift */; };
 		A90B98A62AAF1FA900C2C670 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90B98A52AAF1FA900C2C670 /* HomeViewController.swift */; };
@@ -50,6 +53,9 @@
 
 /* Begin PBXFileReference section */
 		A90598302B83856900670E2D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		A90598322B83CB2700670E2D /* LoadingShowable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingShowable.swift; sourceTree = "<group>"; };
+		A90598372B83CED500670E2D /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
+		A90598392B83CFFD00670E2D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A90B989E2AAF1FA900C2C670 /* MealApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MealApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A90B98A12AAF1FA900C2C670 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A90B98A32AAF1FA900C2C670 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +108,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A90598342B83CCB700670E2D /* LoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				A90598322B83CB2700670E2D /* LoadingShowable.swift */,
+				A90598392B83CFFD00670E2D /* LoadingView.swift */,
+			);
+			path = LoadingView;
+			sourceTree = "<group>";
+		};
 		A90B98952AAF1FA900C2C670 = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +188,7 @@
 		A90F3F472AAFAD75002200F6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A90598342B83CCB700670E2D /* LoadingView */,
 				A90F3F482AAFAD8D002200F6 /* StampView */,
 			);
 			path = Views;
@@ -193,6 +209,7 @@
 				A929956F2AB0E5B3003F9660 /* UIFont+Extension.swift */,
 				A99B279C2AB111B600081F16 /* UICollectionView+Extension.swift */,
 				A99B279E2AB111FA00081F16 /* UICollectionViewCell+Extension.swift */,
+				A90598372B83CED500670E2D /* Collection+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -353,11 +370,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A90B98A62AAF1FA900C2C670 /* HomeViewController.swift in Sources */,
+				A90598382B83CED500670E2D /* Collection+Extension.swift in Sources */,
 				A90B98A22AAF1FA900C2C670 /* AppDelegate.swift in Sources */,
 				A9E596942AB5CDB600867DBA /* StampView.swift in Sources */,
 				A9BCDC2D2AAF36260017F319 /* Widget.swift in Sources */,
 				A90F3F442AAF899D002200F6 /* RestaurantCollectionViewCell.swift in Sources */,
+				A90598332B83CB2700670E2D /* LoadingShowable.swift in Sources */,
 				A9E7CEB02AB0A92700094991 /* NibView.swift in Sources */,
+				A905983A2B83CFFD00670E2D /* LoadingView.swift in Sources */,
 				A9BCDC2B2AAF26A90017F319 /* HomeEndpointItem.swift in Sources */,
 				A90598312B83856900670E2D /* HomeViewModel.swift in Sources */,
 				A99B279D2AB111B600081F16 /* UICollectionView+Extension.swift in Sources */,
