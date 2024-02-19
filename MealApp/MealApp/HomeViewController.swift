@@ -19,44 +19,32 @@ extension HomeViewController {
 }
 
 class HomeViewController: UIViewController {
-    let networkManager: NetworkManager<HomeEndpointItem> = NetworkManager()
+    
     @IBOutlet private weak var restaurantsCollectionView: UICollectionView!
-    private var widgets: [Widget] = []
-    private var href : String = "page=1"
-    private var shouldFetchNextPage: Bool = true
+
+  
+    
+    var viewModel: HomeViewModelProtocol! {
+        didSet {
+            viewModel.delegate = self
+        }
+    }
+        
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareCollectionView()
-        fetchWidgets(query: href)
     }
     
-    private func prepareCollectionView() {
-        restaurantsCollectionView.dataSource = self
-        restaurantsCollectionView.delegate = self
+    override func viewDidAppear(_ animated: Bool) {
+        viewModel.load()
+
+    }
         
-        restaurantsCollectionView.register(cellType: RestaurantCollectionViewCell.self)
-    }
-    
-    
-    private func fetchWidgets(query: String) {
-        networkManager.request(endpoint: .homepage(query: query), type: HomeResponse.self) { [weak self] result in
-            switch result {
-            case .success(let response):
-                if let widgets = response.widgets {
-                    self?.shouldFetchNextPage = !widgets.isEmpty
-                    self?.widgets.append(contentsOf: widgets)
-                } else {
-                    self?.shouldFetchNextPage = false
-                }
-                self?.href = response.href ?? ""
-                self?.restaurantsCollectionView.reloadData()
-            case .failure(let error):
-                print(error)
-                break
-            }
-        }
+    @objc
+    private func pullToRefresh() {
+        viewModel.pullToRefresh()
     }
     
     private func calculateCellHeight() -> CGFloat {
@@ -68,13 +56,13 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        widgets.count
+        viewModel.numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeCell(cellType: RestaurantCollectionViewCell.self, indexPath: indexPath)
         //cell configure
-       if let restaurant = widgets[indexPath.item].restaurants?.first {
+        if let restaurant = viewModel.restaurant(indexPath.item) {
             cell.configure(restaurant: restaurant)
         }
         
@@ -86,7 +74,9 @@ extension HomeViewController: UICollectionViewDataSource {
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        .init(width: collectionView.frame.size.width - (Constants.cellLeftPadding + Constants.cellRightPadding ), height: calculateCellHeight())
+        let size = viewModel.calculateCellHeight(collectionViewWidth: Double(collectionView.frame.size.width))
+           return .init(width: size.width, height: size.height )
+//        .init(width: collectionView.frame.size.width - (Constants.cellLeftPadding + Constants.cellRightPadding ), height: viewModel.calculateCellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -98,8 +88,42 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.item == (widgets.count - 1), shouldFetchNextPage {
-            fetchWidgets(query: href)
-        }
+        viewModel.willDisplay(indexPath.item)
+        
+        
     }
+}
+
+extension HomeViewController: HomeViewModelDelegate {
+    func showLoadingView() {
+        
+    }
+    
+    func hideLoadingView() {
+        
+    }
+    
+    func reloadData() {
+        
+    }
+    
+    func endRefreshing() {
+        
+    }
+    
+    func prepareCollectionView() {
+        restaurantsCollectionView.dataSource = self
+        restaurantsCollectionView.delegate = self
+        restaurantsCollectionView.register(cellType: RestaurantCollectionViewCell.self)
+    }
+    
+    func addRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+        restaurantsCollectionView.refreshControl = refreshControl
+    }
+
+
+    
+    
 }

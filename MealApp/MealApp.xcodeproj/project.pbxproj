@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A90598312B83856900670E2D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90598302B83856900670E2D /* HomeViewModel.swift */; };
 		A90B98A22AAF1FA900C2C670 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90B98A12AAF1FA900C2C670 /* AppDelegate.swift */; };
 		A90B98A42AAF1FA900C2C670 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90B98A32AAF1FA900C2C670 /* SceneDelegate.swift */; };
 		A90B98A62AAF1FA900C2C670 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90B98A52AAF1FA900C2C670 /* HomeViewController.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A90598302B83856900670E2D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A90B989E2AAF1FA900C2C670 /* MealApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MealApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A90B98A12AAF1FA900C2C670 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A90B98A32AAF1FA900C2C670 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				A90B98A32AAF1FA900C2C670 /* SceneDelegate.swift */,
 				A9BCDC2A2AAF26A90017F319 /* HomeEndpointItem.swift */,
 				A90B98A52AAF1FA900C2C670 /* HomeViewController.swift */,
+				A90598302B83856900670E2D /* HomeViewModel.swift */,
 				A9BCDC2C2AAF36260017F319 /* Widget.swift */,
 				A90B98A72AAF1FA900C2C670 /* Main.storyboard */,
 				A90B98AA2AAF1FAA00C2C670 /* Assets.xcassets */,
@@ -356,6 +359,7 @@
 				A90F3F442AAF899D002200F6 /* RestaurantCollectionViewCell.swift in Sources */,
 				A9E7CEB02AB0A92700094991 /* NibView.swift in Sources */,
 				A9BCDC2B2AAF26A90017F319 /* HomeEndpointItem.swift in Sources */,
+				A90598312B83856900670E2D /* HomeViewModel.swift in Sources */,
 				A99B279D2AB111B600081F16 /* UICollectionView+Extension.swift in Sources */,
 				A92995702AB0E5B3003F9660 /* UIFont+Extension.swift in Sources */,
 				A90B98A42AAF1FA900C2C670 /* SceneDelegate.swift in Sources */,
