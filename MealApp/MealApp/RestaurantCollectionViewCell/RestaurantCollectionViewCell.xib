@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="RestaurantCollectionViewCell" customModule="MealApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="345" height="187"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="345" height="187"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xRW-0l-AAL">
+                        <rect key="frame" x="0.0" y="0.0" width="345" height="187"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="l3t-86-TtZ">
+                                <rect key="frame" x="0.0" y="0.0" width="345" height="187"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wYi-ZU-XVV" userLabel="ImageViewContainer">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="130"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HMx-py-4PT" userLabel="bannerImageView">
+                                                <rect key="frame" x="0.0" y="0.0" width="345" height="130"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="HMx-py-4PT" secondAttribute="height" multiplier="345:130" id="fAt-Ic-WNA"/>
+                                                </constraints>
+                                            </imageView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="70e-nB-qvc">
+                                                <rect key="frame" x="15" y="97" width="140" height="23"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hVd-qC-ktq" userLabel="RatingView" customClass="StampView" customModule="MealApp" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="23"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="CFg-oT-edd"/>
+                                                            <constraint firstAttribute="width" priority="999" constant="30" id="rBc-sH-d65"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KHi-ng-eQ9" userLabel="CampaignView" customClass="StampView" customModule="MealApp" customModuleProvider="target">
+                                                        <rect key="frame" x="40" y="0.0" width="100" height="23"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="7HK-TB-bgG"/>
+                                                            <constraint firstAttribute="width" priority="999" constant="100" id="gRh-Gf-MEK"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="23" id="hww-7u-7V0"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="70e-nB-qvc" firstAttribute="leading" secondItem="wYi-ZU-XVV" secondAttribute="leading" constant="15" id="4e6-bW-ne1"/>
+                                            <constraint firstItem="HMx-py-4PT" firstAttribute="top" secondItem="wYi-ZU-XVV" secondAttribute="top" id="Boa-Gi-MXH"/>
+                                            <constraint firstAttribute="bottom" secondItem="70e-nB-qvc" secondAttribute="bottom" constant="10" id="GSs-C4-Wac"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="70e-nB-qvc" secondAttribute="trailing" constant="15" id="fv7-wS-cIJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="HMx-py-4PT" secondAttribute="trailing" id="i1X-WM-cvh"/>
+                                            <constraint firstItem="HMx-py-4PT" firstAttribute="leading" secondItem="wYi-ZU-XVV" secondAttribute="leading" id="kc3-4M-Xju"/>
+                                            <constraint firstAttribute="bottom" secondItem="HMx-py-4PT" secondAttribute="bottom" id="u59-h3-qmk"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yuO-uV-QIw" userLabel="DescriptionViewContainer">
+                                        <rect key="frame" x="0.0" y="130" width="345" height="57"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mFA-3H-c1p">
+                                                <rect key="frame" x="15" y="10" width="315" height="32"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="UlU-Py-2P7">
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="19"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rok-Th-eXD" userLabel="Label Restaurant Name">
+                                                                <rect key="frame" x="0.0" y="0.0" width="265" height="19"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J0R-Qw-9VJ" userLabel="Status View" customClass="StampView" customModule="MealApp" customModuleProvider="target">
+                                                                <rect key="frame" x="270" y="0.0" width="45" height="19"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" priority="999" constant="45" id="38A-SZ-yep"/>
+                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="6Tg-Co-CDK"/>
+                                                                    <constraint firstAttribute="height" constant="19" id="prS-tr-YSE"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cZ1-u5-BRw">
+                                                        <rect key="frame" x="0.0" y="19" width="315" height="13"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3SR-hW-oEt" userLabel="Restaurant Descripton">
+                                                                <rect key="frame" x="0.0" y="0.0" width="315" height="13"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="mFA-3H-c1p" firstAttribute="leading" secondItem="yuO-uV-QIw" secondAttribute="leading" constant="15" id="4hN-xK-Ibm"/>
+                                            <constraint firstAttribute="bottom" secondItem="mFA-3H-c1p" secondAttribute="bottom" constant="15" id="fVZ-Ab-CWD"/>
+                                            <constraint firstItem="mFA-3H-c1p" firstAttribute="top" secondItem="yuO-uV-QIw" secondAttribute="top" constant="10" id="rze-6S-EHB"/>
+                                            <constraint firstAttribute="trailing" secondItem="mFA-3H-c1p" secondAttribute="trailing" constant="15" id="yAi-p9-vXx"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="l3t-86-TtZ" secondAttribute="trailing" id="W10-U3-SjD"/>
+                            <constraint firstItem="l3t-86-TtZ" firstAttribute="leading" secondItem="xRW-0l-AAL" secondAttribute="leading" id="aOd-s7-Zzl"/>
+                            <constraint firstAttribute="bottom" secondItem="l3t-86-TtZ" secondAttribute="bottom" id="al4-R9-9dQ"/>
+                            <constraint firstItem="l3t-86-TtZ" firstAttribute="top" secondItem="xRW-0l-AAL" secondAttribute="top" id="rqH-B8-vUl"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="xRW-0l-AAL" secondAttribute="bottom" id="AlR-nc-pEC"/>
+                <constraint firstItem="xRW-0l-AAL" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="P7Y-xR-yOY"/>
+                <constraint firstItem="xRW-0l-AAL" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="gjd-hN-FPn"/>
+                <constraint firstAttribute="trailing" secondItem="xRW-0l-AAL" secondAttribute="trailing" id="uAM-rU-3JP"/>
+            </constraints>
+            <connections>
+                <outlet property="bannerImageView" destination="HMx-py-4PT" id="F65-cS-Tpr"/>
+                <outlet property="campaignView" destination="KHi-ng-eQ9" id="wOM-HR-OPX"/>
+                <outlet property="containerView" destination="xRW-0l-AAL" id="17f-LB-2mY"/>
+                <outlet property="descriptonLabel" destination="3SR-hW-oEt" id="oPf-WB-5Ra"/>
+                <outlet property="ratingView" destination="hVd-qC-ktq" id="99z-xj-beV"/>
+                <outlet property="statusView" destination="J0R-Qw-9VJ" id="KII-qY-wpo"/>
+                <outlet property="titleLabel" destination="Rok-Th-eXD" id="se9-tY-DH6"/>
+            </connections>
+            <point key="canvasLocation" x="-83.206106870229007" y="18.661971830985916"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
