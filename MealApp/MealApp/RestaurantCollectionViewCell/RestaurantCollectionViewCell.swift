@@ -8,7 +8,27 @@
 import UIKit
 import SDWebImage
 
-class RestaurantCollectionViewCell: UICollectionViewCell {
+extension RestaurantCollectionViewCell {
+    fileprivate enum Constants {
+        enum Shadow {
+            static let opacity: Float = 1
+            static let radius: CGFloat = 10
+            static let offset = CGSize(width:0, height:5)
+            static let cornerRadius: CGFloat = 5
+        }
+        enum UI {
+            static let cornerRadius: CGFloat = 20
+            static let fontRegular: UIFont = .systemFont(ofSize: 14)
+            static let fontLight: UIFont = .systemFont(ofSize: 10)
+            static let bullet: String = " \u{2022} " //nokta şeklinin kodu
+            static let bulletString = NSMutableAttributedString(string: bullet,
+                                               attributes: [NSAttributedString.Key.font : fontLight,
+                                                           NSAttributedString.Key.foregroundColor : UIColor.gray])
+        }
+    }
+}
+
+final class RestaurantCollectionViewCell: UICollectionViewCell {
 
     
     @IBOutlet private weak var bannerImageView: UIImageView!
@@ -19,6 +39,12 @@ class RestaurantCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var statusView: StampView!
     @IBOutlet private weak var descriptonLabel: UILabel!
 
+    var viewModel: RestaurantCollectionViewCellViewModelProtocol! {
+        didSet {
+            viewModel.delegate = self
+            viewModel.load()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,97 +59,85 @@ class RestaurantCollectionViewCell: UICollectionViewCell {
         titleLabel.font = .systemFont(ofSize: 14)
         descriptonLabel.textColor = .gray
         descriptonLabel.font = .systemFont(ofSize: 12)
-        bannerImageView.layer.cornerRadius = 25
+    }
+    
+    //Logic işlemlerini RestaurantCollectionViewCellViewModel'a geçiriyoruz
+    
+    
+    
+}
+extension RestaurantCollectionViewCell: RestaurantCollectionViewCellViewModelDelegate {
+    
+    func prepareShadow() {
+        layer.shadowColor = UIColor.lightGray.cgColor
+        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: Constants.Shadow.cornerRadius).cgPath
+        layer.shadowOffset = Constants.Shadow.offset
+        layer.shadowOpacity = Constants.Shadow.opacity
+        layer.shadowRadius = Constants.Shadow.radius
+        layer.masksToBounds = false
+        containerView.layer.cornerRadius = Constants.UI.cornerRadius
         containerView.layer.masksToBounds = true
-        containerView.layer.cornerRadius = 25
-    }
-    
-    func configure(restaurant: Restaurant) {
-        titleLabel.text = restaurant.name
-        
-        prepareBannerImage(with: restaurant.imageUrl)
-        prepareRating(rating: restaurant.rating, ratingBackgroundColor: restaurant.ratingBackgroundColor)
-        prepareCampaingView(campaingText: restaurant.campaignText)
-        prepareStatusView(isClosed: restaurant.closed)
-        prepareDescriptionView(restaurant)
-        
         
     }
     
-    private func prepareBannerImage(with urlString: String?) {
-        if let imageUrlString = urlString, let url = URL(string: imageUrlString) {
-            bannerImageView.sd_setImage(with: url)
-        }
+    func setTitleLabel(_ text: String) {
+        titleLabel.text = text
     }
     
-    private func prepareRating(rating: Double?, ratingBackgroundColor: String?) {
-        if let rating = rating,
-           let backgroundColorString = ratingBackgroundColor {
+    func prepareBannerImage(with url: URL) {
+        bannerImageView.sd_setImage(with: url)
+    }
+    
+    func prepareRating(rating: Double, ratingBackgroundColor: String) {
             ratingView.configure(title: String(rating),
                                  font: .systemFont(ofSize: 14),
                                  backgroundColor: .systemGreen )
-            ratingView.isHidden = false
-        } else {
-            ratingView.isHidden = true
-        }
-    }
-    
-    private func prepareCampaingView(campaingText: String?) {
-        if let campaingText = campaingText, !campaingText.isEmpty {
-            campaignView.configure(title: campaingText, backgroundColor: .orange)
-            campaignView.isHidden = false
-        } else {
-            campaignView.isHidden = true
-        }
-    }
-    
-    private func prepareStatusView(isClosed: Bool?) {
-        if isClosed ?? false {
-            statusView.configure(title: "Kapalı", backgroundColor: .red)
-            statusView.isHidden = false
-        } else {
-            statusView.isHidden = true
-        }
-    }
-    
-    private func prepareDescriptionView(_ restaurant: Restaurant) {
-        let fontRegular: UIFont = .systemFont(ofSize: 14)
-        let fontLight: UIFont = .systemFont(ofSize: 10)
-        let bullet: String = " \u{2022} " //nokta şeklinin kodu
-        let bulletString = NSMutableAttributedString(string: bullet,
-                                           attributes: [NSAttributedString.Key.font : fontLight,
-                                                       NSAttributedString.Key.foregroundColor : UIColor.gray])
-        if restaurant.closed ?? false {
-            let attributedString = NSMutableAttributedString(string: restaurant.workingHours,
-                                                   attributes: [NSAttributedString.Key.font : fontRegular])
-            attributedString.append(bulletString)
-            attributedString.append(NSMutableAttributedString(string: restaurant.kitchen,
-                                                              attributes: [NSAttributedString.Key.font : fontRegular]))
-            descriptonLabel.attributedText = attributedString
-        } else {
-            let attributedString = NSMutableAttributedString(string: restaurant.averageDeliveryInterval,
-                                                   attributes:[NSAttributedString.Key.font : fontRegular])
-            attributedString.append(bulletString)
-            attributedString.append(NSMutableAttributedString(string: restaurant.averageDeliveryInterval,
-                                                   attributes:[NSAttributedString.Key.font : fontRegular]))
-            attributedString.append(bulletString)
-            attributedString.append(NSMutableAttributedString(string: restaurant.kitchen,
-                                                   attributes:[NSAttributedString.Key.font : fontRegular]))
-            descriptonLabel.attributedText = attributedString
-            
-        }
-        
-        
-        
-        
-        
+//            ratingView.isHidden = false
         
     }
     
+    func prepareRatingVisibility(isHidden: Bool) {
+        ratingView.isHidden = isHidden
+    }
     
     
+    func prepareCampaingView(campaingText: String) {
+        campaignView.configure(title: campaingText, backgroundColor: .orange)
+    }
+    
+    func prepareCampaignViewVisibility(isHidden: Bool) {
+        campaignView.isHidden = isHidden
+    }
+    
+    func prepareStatusView() {
+        statusView.configure(title: "Kapalı", backgroundColor: .red)
+        
+    }
+    
+    func prepareStatusViewVisibility(isHidden: Bool) {
+        statusView.isHidden = isHidden
+    }
     
     
+    func setOpenDescriptionView(averageDeliveryInterval: String, minBasketPrice: String, kitchen: String) {
+        let attributedString = NSMutableAttributedString(string: averageDeliveryInterval,
+                                                         attributes:[NSAttributedString.Key.font : Constants.UI.fontRegular])
+        attributedString.append(Constants.UI.bulletString)
+        attributedString.append(NSMutableAttributedString(string:minBasketPrice,
+                                                          attributes:[NSAttributedString.Key.font : Constants.UI.fontRegular]))
+        attributedString.append(Constants.UI.bulletString)
+        attributedString.append(NSMutableAttributedString(string: kitchen,
+                                                          attributes:[NSAttributedString.Key.font : Constants.UI.fontRegular]))
+        descriptonLabel.attributedText = attributedString
+    }
     
+    func setClosedDescriptionView(workingHours: String, kitchen: String) {
+        let attributedString = NSMutableAttributedString(string: workingHours,
+                                                         attributes: [NSAttributedString.Key.font : Constants.UI.fontRegular])
+        attributedString.append(Constants.UI.bulletString)
+        attributedString.append(NSMutableAttributedString(string: kitchen,
+                                                          attributes: [NSAttributedString.Key.font : Constants.UI.fontRegular]))
+        descriptonLabel.attributedText = attributedString
+    }
     
 }
