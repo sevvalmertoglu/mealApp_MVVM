@@ -20,7 +20,7 @@ extension HomeViewModel {
     }
 }
 
-protocol HomeViewModelProtocol {
+protocol HomeViewModelProtocol { //Haberleşmeleri için Protocol oluşturduk
     var delegate: HomeViewModelDelegate? { get set }
     var numberOfItems: Int { get }
     var cellPadding: Double { get }
